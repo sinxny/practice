@@ -38,12 +38,24 @@ $(document).ready(function() {
     }
 });
 
+// 로그아웃
 function onLogoutClick() {
     sessionStorage.removeItem("isLogin");
     sessionStorage.removeItem("nickName");
     location.reload();
 }
 
+// 모달 페이지
+function modalPageShow(menu) {
+    var title = "";
+    if(menu == "search") {
+        title = "연차 조회"
+    }
+
+    $("#modalPage .modal-title").text(title);
+    $("#modalPage .modal-body").load("add_search/search_view.php");
+    $("#modalPage").modal("show");
+}
 </script>
 <div id="mainPage">
     <div class="panel shadow1" style="text-align:center;">
@@ -63,10 +75,33 @@ function onLogoutClick() {
             </div>
         </div>
         <div>
-            <div class="exBtn btn-6 m-4">연차 등록 / 조회</div>
+            <div class="exBtn btn-6 m-4" onclick="modalPageShow('search')">연차 등록 / 조회</div>
         </div>
     </div>
 </div>
+
+<!-- The Modal -->
+<div class="modal fade" id="modalPage">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title"></h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body"></div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>
