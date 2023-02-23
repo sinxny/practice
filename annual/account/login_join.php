@@ -51,7 +51,7 @@
     if($mode == "login") {
         $proceed = true;
 
-        $SQL = "SELECT nick_name
+        $SQL = "SELECT UNO, NICK_NAME
                 FROM AN_USER
                 WHERE USER_ID = '{$data["loginId"]}'
                 AND PASSWORD = '{$data["loginPassword"]}'";
@@ -61,6 +61,7 @@
         if($isUser == 1) {
             while($db->next_record()) {
                 $row = $db->Record;
+                $uno = $row["uno"];
                 $nickName = $row["nick_name"];
             }
             $proceed = true;
@@ -68,12 +69,14 @@
         } else {
             $proceed = false;
             $msg = '로그인에 실패하였습니다.';
+            $uno = null;
             $nickName = null;
         }
 
         $result = array(
             "proceed" => $proceed,
             "msg" => $msg,
+            "uno" => $uno,
             "nickName" => $nickName
         );
         echo json_encode($result);

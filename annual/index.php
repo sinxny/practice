@@ -36,6 +36,11 @@ $(document).ready(function() {
     } else {
         $(".dropdown-item-text").text(sessionStorage.getItem("nickName"));
     }
+
+    // 등록버튼
+    $("#btnAddAnnual").on('click', function() {
+        modalPageShow("add");
+    })
 });
 
 // 로그아웃
@@ -48,12 +53,17 @@ function onLogoutClick() {
 // 모달 페이지
 function modalPageShow(menu) {
     var title = "";
+    var url = "";
     if(menu == "search") {
-        title = "연차 조회"
+        title = "연차 조회";
+        url = "add_search/search_view.php";
+    } else if(menu == "add") {
+        title = "연차 등록"
+        url = "add_search/add_view.php";
     }
 
     $("#modalPage .modal-title").text(title);
-    $("#modalPage .modal-body").load("add_search/search_view.php");
+    $("#modalPage .modal-body").load(url);
     $("#modalPage").modal("show");
 }
 </script>
@@ -87,8 +97,11 @@ function modalPageShow(menu) {
       
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title"></h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title"></h4>
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-sm btn-primary" id="btnAddAnnual">등록</button>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
         </div>
         
         <!-- Modal body -->

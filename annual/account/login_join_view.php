@@ -49,16 +49,13 @@ $(document).ready(function() {
 
 var vmLS = new Vue({
     el: "#app",
-    data : {
+    data: {
         userId: '',
         password: '',
         chkPassword: '',
         nickName: '',
         loginId: '',
         loginPassword: ''
-    },
-    created() {
-
     },
     methods : {
         // sign up 버튼 클릭
@@ -167,6 +164,7 @@ var vmLS = new Vue({
                     var response = response["data"];
                     if(response["proceed"] == true) {
                         sessionStorage.setItem("isLogin", true);
+                        sessionStorage.setItem("uno", response["uno"]);
                         sessionStorage.setItem("nickName", response["nickName"]);
                         location.reload();
                     } else {
