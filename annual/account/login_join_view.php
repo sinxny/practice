@@ -29,6 +29,10 @@ $(document).ready(function() {
         $("#signup-form-submit").toggleClass("hidden", false);
         $("#log_in").toggleClass("active-button", true);
         $("#sign_up").prop('disabled', true);
+
+        $("input").removeClass("validateInput");
+        $("input").next("div").find("label").text("");
+        $("input").next("div").hide();
     });
 
     $("#log_in").click(function() { // when click Log In button, hide the Sign Up elements, and display the Log In elements
@@ -44,6 +48,10 @@ $(document).ready(function() {
         $("#signup-form-submit").toggleClass("hidden", true);
         $("#log_in").toggleClass("active-button", false);
         $("#sign_up").removeAttr("disabled");
+
+        $("input").removeClass("validateInput");
+        $("input").next("div").find("label").text("");
+        $("input").next("div").hide();
     });
 });
 

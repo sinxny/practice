@@ -41,6 +41,12 @@ $(document).ready(function() {
     $("#btnAddAnnual").on('click', function() {
         modalPageShow("add");
     })
+    // 조회버튼
+    $("#btnSearchAnnual").on('click', function() {
+        modalPageShow("search")
+    });
+    // 저장버튼
+    $("#btnSave").on('click', onBtnSaveClick);
 });
 
 // 로그아웃
@@ -57,14 +63,25 @@ function modalPageShow(menu) {
     if(menu == "search") {
         title = "연차 조회";
         url = "add_search/search_view.php";
+        $("#btnSave").hide();
+        $("#btnSearchAnnual").hide();
+        $("#btnAddAnnual").show();
     } else if(menu == "add") {
         title = "연차 등록"
         url = "add_search/add_view.php";
+        $("#btnSave").show();
+        $("#btnSearchAnnual").show();
+        $("#btnAddAnnual").hide();
     }
 
     $("#modalPage .modal-title").text(title);
     $("#modalPage .modal-body").load(url);
     $("#modalPage").modal("show");
+}
+
+// 저장 버튼
+function onBtnSaveClick() {
+    
 }
 </script>
 <div id="mainPage">
@@ -100,6 +117,7 @@ function modalPageShow(menu) {
             <h4 class="modal-title"></h4>
             <div class="d-flex justify-content-end">
                 <button type="button" class="btn btn-sm btn-primary" id="btnAddAnnual">등록</button>
+                <button type="button" class="btn btn-sm btn-primary" id="btnSearchAnnual">조회</button>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
         </div>
@@ -108,8 +126,9 @@ function modalPageShow(menu) {
         <div class="modal-body"></div>
         
         <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <div class="modal-footer" style="justify-content: space-around!important">
+            <button type="button" class="btn btn-primary" id="btnSave">저장</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
         </div>
         
       </div>

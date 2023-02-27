@@ -1,25 +1,87 @@
+<style>
+    @media (max-width:500px) {
+        #addForm, #annualReason {
+            margin: 0 !important;
+        }
+    }
+</style>
+<script>
+    var vmSearch = new Vue({
+        el: "#app",
+        data: {
+            mode: 'init',
+            uno: sessionStorage.getItem("uno"),
+            reasonList: [],
+            annualReason: ''
+        },
+        created() {
+            this.initAddPage();
+        },
+        methods: {
+            // 초기화면
+            initAddPage() {
+                var data = this;
+                var url = "./add_search/add.php";
+                var info = {
+                    mode: this.mode,
+                    uno: this.uno
+                }
+                axios.post(url, info)
+                .then(function(response) {
+                    data.reasonList = response["data"]["reasonList"];
+                })
+                .finally(function() {
+                    // 첫번째 옵션 값 선택
+                    $("#annualReason").find("option").eq(0).prop("selected", true);
+                })
+                .catch(function(error){
+                    console.log(error);
+                });
+            }
+        }
+    })
+</script>
 <div id="app">
-    <div class="p-4 mx-5" style="border:dotted; border-radius:50px">
-        <div class="form-group form-inline">
-            <label for="useDate">연차사용 날짜 : </label>
-            <input type="date" class="form-control" id="useDate" name="useDate" required>
-            <div class="valid-feedback">Valid.</div>
-            <div class="invalid-feedback">Please fill out this field.</div>
+    <div id="addForm" class="p-4 mx-5">
+        <div class="row form-group">
+            <label for="useDate" class="col-md-3">연차사용 날짜 : </label>
+            <div class="col-md">
+                <input type="date" class="form-control" id="useDate">
+                <div class="invalid-feedback"></div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="pwd">Password:</label>
-            <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd" required>
-            <div class="valid-feedback">Valid.</div>
-            <div class="invalid-feedback">Please fill out this field.</div>
+        <div class="row form-group">
+            <label for="useTime" class="col-md-3">연차사용 시간 : </label>
+            <div class="col-md">
+                <select class="form-control" id="useTime">
+                    <option value="8">8시간(1개)</option>
+                    <option value="7">7시간</option>
+                    <option value="6">6시간</option>
+                    <option value="5">5시간</option>
+                    <option value="4">4시간</option>
+                    <option value="3">3시간</option>
+                    <option value="2">2시간</option>
+                    <option value="1">1시간</option>
+                </select>
+                <div class="invalid-feedback"></div>
+            </div>
         </div>
-        <div class="form-group form-check">
-            <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" name="remember" required> I agree on blabla.
-                <div class="valid-feedback">Valid.</div>
-                <div class="invalid-feedback">Check this checkbox to continue.</div>
-            </label>
+        <div class="row form-group">
+            <label for="annualReason" class="col-md-3">연차 사유 : </label>
+            <div class="col-md form-inline">
+                <select class="form-control mr-2" id="annualReason" v-model="annualReason" @change="changeReason">
+                    <option v-for="reason in reasonList" value="reason.rno">{{ reason.reasonText }}</option>
+                    <option value="direct">직접입력</option>
+                </select>
+                <input type="text" class="form-control" v-show="annualReason == 'direct'" maxlength="50"/>
+                <div class="invalid-feedback"></div>
+            </div>
         </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="row form-group">
+            <label for="annualEtc" class="col-md-3">기타사항 : </label>
+            <div class="col-md">
+                <textarea maxlength="500" class="form-control"></textarea>
+            </div>
         </div>
     </div>
 </div>
