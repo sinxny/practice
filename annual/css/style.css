@@ -234,6 +234,21 @@ a {
     border-radius: 20px 20px 0 0;
 }
 
+.tableFixHead-modal { 
+    overflow-y: auto; 
+    overflow-x: hidden;
+    height: 35vh; 
+}
+
+.tableFixHead-modal thead {
+    z-index: 1;
+    position: relative;
+}
+
+.md-none {
+    display: block;
+}
+
 /*MEDIA QUERIES     */
 
 @media (max-height:800px) {
@@ -313,6 +328,10 @@ a {
         background-color:#d7d7d7;
         height:8%;
         border-radius: 0 0 0 0;
+    }
+
+    .md-none {
+        display: none;
     }
 
 }

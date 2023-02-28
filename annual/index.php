@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,6 +16,7 @@
     <script type="text/javascript" src="vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.13/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="js/grp.js"></script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -81,7 +81,77 @@ function modalPageShow(menu) {
 
 // 저장 버튼
 function onBtnSaveClick() {
-    
+    if(chkAnnualDate() & chkAnnualReason()) {
+        var url = "./add_search/add.php";
+        var useDate = $("#useDate").val();
+        var useTime = $("#useTime").val();
+        var annualReason = $("#annualReason").val();
+        var directReason = $("#directReason").val();
+        var annualEtc = $("#annualEtc").val();
+        var info = {
+            mode: 'add',
+            uno: sessionStorage.getItem("uno"),
+            useDate: useDate,
+            useTime: useTime,
+            annualReason: annualReason,
+            directReason: directReason,
+            annualEtc: annualEtc
+        }
+        axios.post(url, info)
+        .then(function(response) {
+            if(response["data"]["proceed"] == true) {
+                modalPageShow("search");
+            }
+        })
+        .finally(function() {
+
+        })
+        .catch(function(error){
+            console.log(error);
+        });
+    }
+}
+
+// 날짜 형식 체크
+function chkAnnualDate() {
+    var date = $("#useDate").val();
+    var result = chkDateFormat(date);
+    if(result == '') {
+        $("#useDate").addClass("is-invalid");
+        $("#useDate").siblings("div").text("날짜를 입력하세요.");
+        return false;
+    } else if (result == false) {
+        $("#useDate").addClass("is-invalid");
+        $("#useDate").siblings("div").text("날짜형식이 잘못되었습니다.");
+        return false;
+    } else {
+        $("#useDate").removeClass("is-invalid");
+        $("#useDate").siblings("div").text("");
+        return true;
+    }
+}
+
+// 연차 사유 체크
+function chkAnnualReason() {
+    var annualReason = $("#annualReason").val();
+    if(annualReason == "direct") {
+        var directReason = $("#directReason").val();
+
+        if($.trim(directReason) == '') {
+            $("#directReason").addClass("is-invalid");
+            $("#directReason").siblings("div").text("사유를 입력하세요.");
+            return false;
+        } else {
+            $("#directReason").removeClass("is-invalid");
+            $("#directReason").siblings("div").text("");
+            return true;
+        }
+    } else {
+        $("#directReason").removeClass("is-invalid");
+        $("#directReason").siblings("div").text("");
+        $("#directReason").val("");
+        return true;
+    }
 }
 </script>
 <div id="mainPage">
@@ -103,6 +173,7 @@ function onBtnSaveClick() {
         </div>
         <div>
             <div class="exBtn btn-6 m-4" onclick="modalPageShow('search')">연차 등록 / 조회</div>
+            <div class="exBtn btn-6 m-4" onclick="modalPageShow('search')">연차사유 분석</div>
         </div>
     </div>
 </div>

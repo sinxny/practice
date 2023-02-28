@@ -16,6 +16,9 @@
         },
         created() {
             this.initAddPage();
+
+            // 날짜 min/max 값 넣기
+            dateMinMaxAppend();
         },
         methods: {
             // 초기화면
@@ -69,18 +72,18 @@
         <div class="row form-group">
             <label for="annualReason" class="col-md-3">연차 사유 : </label>
             <div class="col-md form-inline">
-                <select class="form-control mr-2" id="annualReason" v-model="annualReason" @change="changeReason">
-                    <option v-for="reason in reasonList" value="reason.rno">{{ reason.reasonText }}</option>
+                <select class="form-control mr-2" id="annualReason" v-model="annualReason">
+                    <option v-for="reason in reasonList" :value="reason.rno">{{ reason.reasonText }}</option>
                     <option value="direct">직접입력</option>
                 </select>
-                <input type="text" class="form-control" v-show="annualReason == 'direct'" maxlength="50"/>
+                <input type="text" class="form-control" id="directReason" v-show="annualReason == 'direct'" maxlength="50"/>
                 <div class="invalid-feedback"></div>
             </div>
         </div>
         <div class="row form-group">
             <label for="annualEtc" class="col-md-3">기타사항 : </label>
             <div class="col-md">
-                <textarea maxlength="500" class="form-control"></textarea>
+                <textarea maxlength="500" class="form-control" id="annualEtc"></textarea>
             </div>
         </div>
     </div>

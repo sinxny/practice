@@ -33,7 +33,7 @@
             $msg = "nickName|중복된 NICK NAME입니다.";
         } else {
             $SQL = "INSERT INTO AN_USER(UNO, USER_ID, PASSWORD, NICK_NAME)
-                    VALUES (SEQ_UNO.NEXTVAL, '{$data["userId"]}', '{$data["password"]}', '{$data["nickName"]}')";
+                    VALUES (SEQ_AN_UNO.NEXTVAL, '{$data["userId"]}', '{$data["password"]}', '{$data["nickName"]}')";
             if($db->query($SQL)) {
                 $proceed = true;
                 $msg = "회원가입이 완료되었습니다.";
