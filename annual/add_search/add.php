@@ -15,7 +15,8 @@
         $uno = $data["uno"];
         $SQL = "SELECT RNO, REASON_TEXT 
                 FROM AN_REASON
-                WHERE UNO = {$uno}";
+                WHERE UNO = {$uno}
+                ORDER BY RNO DESC";
         $db->query($SQL);
 
         while($db->next_record()) {
@@ -46,8 +47,8 @@
         if($annualReason == "direct") {
             $SQL = "SELECT * 
                     FROM AN_REASON
-                    WHERE TRIM(REASON_TEXT) = TRIM('{$directReason}'
-                    AND UNO = {$uno})";
+                    WHERE TRIM(REASON_TEXT) = TRIM('{$directReason}')
+                    AND UNO = {$uno}";
             $db->query($SQL);
 
             if($db->nf() > 0) {

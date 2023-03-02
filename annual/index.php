@@ -17,6 +17,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.13/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="text/javascript" src="js/grp.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -71,6 +72,12 @@ function modalPageShow(menu) {
         url = "add_search/add_view.php";
         $("#btnSave").show();
         $("#btnSearchAnnual").show();
+        $("#btnAddAnnual").hide();
+    } else if(menu == "analysis") {
+        title = "연차 분석";
+        url = "analysis/chart_view.php";
+        $("#btnSave").hide();
+        $("#btnSearchAnnual").hide();
         $("#btnAddAnnual").hide();
     }
 
@@ -173,7 +180,7 @@ function chkAnnualReason() {
         </div>
         <div>
             <div class="exBtn btn-6 m-4" onclick="modalPageShow('search')">연차 등록 / 조회</div>
-            <div class="exBtn btn-6 m-4" onclick="modalPageShow('search')">연차사유 분석</div>
+            <div class="exBtn btn-6 m-4" onclick="modalPageShow('analysis')">연차사유 분석</div>
         </div>
     </div>
 </div>
