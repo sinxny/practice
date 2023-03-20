@@ -4,7 +4,8 @@
         data: {
             uno: sessionStorage.getItem("uno"),
             annualList: [],
-            mode: 'init'
+            mode: 'init',
+            isData: true
         },
         created() {
             this.getAnnualData();
@@ -26,7 +27,12 @@
                 }
                 axios.post(url, info)
                 .then(function(response) {
-                    data.annualList = response["data"]["annualList"];
+                    if(response["data"]["annualList"].length > 0) {
+                        data.annualList = response["data"]["annualList"];
+                        data.isData = true;
+                    } else {
+                        data.isData = false;
+                    }
                 })
                 .catch(function(error){
                     console.log(error);
@@ -56,7 +62,7 @@
     })
 </script>
 <div id="app">
-    <div class="tableFixHead-modal">
+    <div class="tableFixHead-modal" v-show="isData">
         <table class="table table-sm" id="tblAnnualSearch">
             <thead>
                 <tr class="text-center table-info">
@@ -79,5 +85,8 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div class="alert alert-info text-center" v-show="!isData">
+        <strong>데이터가 없습니다.</strong>
     </div>
 </div>

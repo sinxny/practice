@@ -15,7 +15,7 @@
                             SELECT D.RNO, R.REASON_TEXT, SUM(D.USE_TIME) AS TIME_SUM
                             FROM AN_USE_DETAIL D
                             LEFT OUTER JOIN AN_REASON R ON D.RNO = R.RNO
-                            WHERE D.UNO = 1
+                            WHERE D.UNO = {$uno}
                             GROUP BY D.RNO, R.REASON_TEXT
                         )
             SELECT TR.*, DENSE_RANK() OVER (ORDER BY TIME_SUM DESC) AS RANK, ROUND(RATIO_TO_REPORT(TIME_SUM) OVER(), 2) * 100 || '%' AS RATIO
@@ -24,6 +24,7 @@
     $rowCnt = $db->nf();
     $reasonList = [];
     $reasonSumList = [];
+    $reasonAllData = [];
     $etcSum = 0;
     if($rowCnt > 0) {
         while($db->next_record()) {

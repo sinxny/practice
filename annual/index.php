@@ -79,6 +79,13 @@ function modalPageShow(menu) {
         $("#btnSave").hide();
         $("#btnSearchAnnual").hide();
         $("#btnAddAnnual").hide();
+    } else if(menu == "letter") {
+        title = "개발자에게 ..";
+        url = "developing.php"
+        // url = "letter/to_developer_view.php";
+        $("#btnSave").hide();
+        $("#btnSearchAnnual").hide();
+        $("#btnAddAnnual").hide();
     }
 
     $("#modalPage .modal-title").text(title);
@@ -181,6 +188,7 @@ function chkAnnualReason() {
         <div>
             <div class="exBtn btn-6 m-4" onclick="modalPageShow('search')">연차 등록 / 조회</div>
             <div class="exBtn btn-6 m-4" onclick="modalPageShow('analysis')">연차사유 분석</div>
+            <div class="exBtn btn-6 m-4" onclick="modalPageShow('letter')">To Developer</div>
         </div>
     </div>
 </div>

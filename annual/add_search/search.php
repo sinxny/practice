@@ -20,7 +20,8 @@
                 WHERE D.UNO = {$uno}
                 ORDER BY USE_DATE DESC";
         $db->query($SQL);
-    
+        
+        $annualList = [];
         while($db->next_record()) {
             $row = $db->Record;
     

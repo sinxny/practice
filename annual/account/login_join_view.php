@@ -30,6 +30,7 @@ $(document).ready(function() {
         $("#log_in").toggleClass("active-button", true);
         $("#sign_up").prop('disabled', true);
 
+        $("input[type=text]").val('');
         $("input").removeClass("validateInput");
         $("input").next("div").find("label").text("");
         $("input").next("div").hide();
@@ -49,6 +50,7 @@ $(document).ready(function() {
         $("#log_in").toggleClass("active-button", false);
         $("#sign_up").removeAttr("disabled");
 
+        $("input[type=text]").val('');
         $("input").removeClass("validateInput");
         $("input").next("div").find("label").text("");
         $("input").next("div").hide();
@@ -201,7 +203,7 @@ var vmLS = new Vue({
                 <div style="display:none">
                     <label style="font-size:small;color:red;"></label>
                 </div>
-                <input class="login animated fadeInUp animate3" name="password" type="password" required placeholder="Password" v-model="loginPassword" />
+                <input class="login animated fadeInUp animate3" name="password" type="password" required placeholder="Password" v-model="loginPassword" @keyup.enter="loginAnnual"/>
                 <div style="display:none">
                     <label style="font-size:small;color:red;"></label>
                 </div>

@@ -27,15 +27,26 @@
                 var url = "./add_search/add.php";
                 var info = {
                     mode: this.mode,
-                    uno: this.uno
+                    uno: this.uno,
+                    isData: false
                 }
                 axios.post(url, info)
                 .then(function(response) {
-                    data.reasonList = response["data"]["reasonList"];
+                    if(response["data"]["reasonList"].length > 0) {
+                        data.isData = true
+                        data.reasonList = response["data"]["reasonList"];
+                    } else {
+                        data.isData = false;
+                    }
+                    console.log(response["data"]["reasonList"].length);
                 })
                 .finally(function() {
                     // 첫번째 옵션 값 선택
-                    $("#annualReason").find("option").eq(0).prop("selected", true);
+                    if(data.isData == true) {
+                        $("#annualReason").find("option").eq(0).prop("selected", true);
+                    } else {
+                        data.annualReason = 'direct';
+                    }
                 })
                 .catch(function(error){
                     console.log(error);
